@@ -30,6 +30,7 @@ tooltip_running = "Recording | " + tooltip_idle  # Tooltip when recording
 
 ###############
 
+
 class Timelapse(NSObject):
     """ Creates a timelapse video """
 
@@ -49,7 +50,9 @@ class Timelapse(NSObject):
         self.statusbar = NSStatusBar.systemStatusBar()
 
         # Create item in statusbar
-        self.statusitem = self.statusbar.statusItemWithLength_(NSVariableStatusItemLength)
+        self.statusitem = self.statusbar.statusItemWithLength_(
+            NSVariableStatusItemLength
+        )
         self.statusitem.setHighlightMode_(1)  # Highlight upon clicking
 
         # Create a simple menu and bind it to the status item
@@ -61,8 +64,12 @@ class Timelapse(NSObject):
         self.setStatus()
 
     def loadIcons(self):
-        self.icon_recording = NSImage.alloc().initWithContentsOfFile_(os.path.join(dir_resources, image_recording))
-        self.icon_idle = NSImage.alloc().initWithContentsOfFile_(os.path.join(dir_resources, image_idle))
+        self.icon_recording = NSImage.alloc().initWithContentsOfFile_(
+            os.path.join(dir_resources, image_recording)
+        )
+        self.icon_idle = NSImage.alloc().initWithContentsOfFile_(
+            os.path.join(dir_resources, image_idle)
+        )
 
     def setStatus(self):
         """ Sets the image and menu text according to recording status """
@@ -80,10 +87,13 @@ class Timelapse(NSObject):
         menu = NSMenu.alloc().init()
         # Bind record event
         self.recordButton = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-            text_recorder_idle, 'startStopRecording:', '')
+            text_recorder_idle, "startStopRecording:", ""
+        )
         menu.addItem_(self.recordButton)
         # Quit event
-        menuitem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Quit', 'terminate:', '')
+        menuitem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+            "Quit", "terminate:", ""
+        )
         menu.addItem_(menuitem)
         return menu
 
@@ -111,10 +121,10 @@ class Timelapse(NSObject):
             output_dir = base_dir
         # Create path if it doesn't exist
         try:
-            print(output_dir)
+            print (output_dir)
             os.makedirs(output_dir)
         except OSError, e:
-            print("Error while creating directory:", e)
+            print ("Error while creating directory:", e)
             exit()
         return output_dir
 
@@ -134,7 +144,7 @@ class Timelapse(NSObject):
 
     def check_dependencies(self):
         try:
-            subprocess.check_call(['ffmpeg'])
+            subprocess.check_call(["ffmpeg"])
         except subprocess.CalledProcessError:
             print "ffmpeg command was found"
             pass  # ffmpeg is found, but returns non-zero exit as expected

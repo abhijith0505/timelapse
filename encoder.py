@@ -20,10 +20,10 @@ class Encoder(Thread):
         # Set config options
         self.input = "{}/*.png".format(input_dir)
         t = time.localtime()
-        timestamp = time.strftime('%b-%d-%Y_%H:%M', t)
+        timestamp = time.strftime("%b-%d-%Y_%H:%M", t)
         self.output = "{}/output-{}.mp4".format(output_dir, timestamp)
 
-        print("Encoder started")
+        print ("Encoder started")
 
     def join(self, timeout=None):
         """ Hard shutdown """
@@ -36,9 +36,16 @@ class Encoder(Thread):
         a single frame in the movie.
         """
         command = (
-            "ffmpeg", "-framerate", "30", "-pattern_type", "glob", "-i", self.input, self.output
+            "ffmpeg",
+            "-framerate",
+            "30",
+            "-pattern_type",
+            "glob",
+            "-i",
+            self.input,
+            self.output,
         )
 
-        print "\n\nabout to execute:\n%s\n\n" % ' '.join(command)
+        print "\n\nabout to execute:\n%s\n\n" % " ".join(command)
         subprocess.check_call(command)
         print "\n\n The movie was saved to `{}`".format(self.output)

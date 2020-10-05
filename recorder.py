@@ -27,7 +27,9 @@ class Recorder(Thread):
     def join(self, timeout=None):
         """ Stop recording """
         self._stop.set()
-        print("Recorder stopped. Total recording time: " + self.get_recording_time() + ".")
+        print(
+            "Recorder stopped. Total recording time: " + self.get_recording_time() + "."
+        )
         Thread.join(self)
 
     def run(self):
@@ -44,7 +46,7 @@ class Recorder(Thread):
         # The id is the unique part of the filename.
         id = str(datetime.datetime.now())
         # Format the id a bit (remove whitspace and special characters)
-        id = id.replace(' ', '').replace(':', '').replace('.', '')
+        id = id.replace(" ", "").replace(":", "").replace(".", "")
         filename = os.path.join(self.output_dir, id) + "." + self.format
         return filename
 
